@@ -1,19 +1,19 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
-const mongoose = require('mongoose');
-const cors = require('cors');
 require('dotenv').config();
+const connectDB = require('./config/db');
 
+connectDB();
 
-app.use(cors());
 app.use(express.json());
 
+app.use('/api/auth', require('./app/routes/authRoutes'));
+app.use('/api/customers', require('./app/routes/customerRoutes'));
+app.use('/api/cases', require('./app/routes/caseRoutes'));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('CRM Backend Running');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
