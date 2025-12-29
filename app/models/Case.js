@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
 const caseSchema = new mongoose.Schema({
-  customer_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' },
+  title: { type: String, required: true },
+  description: { type: String },
+  customer: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer', required: true },
   assigned_to: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  priority: String,
-  status: String
+  priority: { type: String, enum: ['low', 'medium', 'high'], default: 'medium' },
+  status: { type: String, enum: ['open', 'in_progress', 'on_hold', 'closed'], default: 'open' },
+  source: { type: String },
+  tags: [String]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Case', caseSchema);
