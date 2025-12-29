@@ -7,8 +7,6 @@ const caseSchema = new mongoose.Schema({
   assigned_to: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   priority: { type: String, enum: ['low', 'medium', 'high'], default: 'medium' },
   status: { type: String, enum: ['open', 'in_progress', 'on_hold', 'closed'], default: 'open' },
-  source: { type: String },
-  tags: [String]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Case', caseSchema);
